@@ -61,7 +61,7 @@ export default function ProfileScreen() {
           <View className="relative">
             <Image
               source={{
-                uri: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-K6BNktdElAeW0kBhSc9gJ0YiWPnvbg.png",
+                uri: "https://avatars.githubusercontent.com/u/155179612?v=4",
               }}
               className="w-24 h-24 rounded-full bg-gray-200"
             />
@@ -70,7 +70,7 @@ export default function ProfileScreen() {
             </TouchableOpacity>
           </View>
           <Text className="text-xl font-semibold mt-3">Siddesh Pansare</Text>
-          <Text className="text-gray-500">@siddheshreact101</Text>
+          <Text className="text-gray-500">@siddesh93</Text>
         </View>
 
         {/* Menu Items (No Mapping) */}

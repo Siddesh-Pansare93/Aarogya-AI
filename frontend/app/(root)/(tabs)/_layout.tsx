@@ -19,7 +19,7 @@ export default function RootLayout() {
   return (
 
     <Tabs
-      initialRouteName="home"
+      initialRouteName="neutrientScanHome"
       screenOptions={{
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'white',
@@ -40,9 +40,9 @@ export default function RootLayout() {
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="neutrientScanHome"
         options={{
-          title: 'Home',
+          title: 'Nutrient scan',
           headerShown: false,
           tabBarIcon: ({ focused }) => (<TabIcon source={icons.home} focused={focused} />)
         }}
@@ -71,6 +71,16 @@ export default function RootLayout() {
             } }
        />
 
+<Tabs.Screen 
+      name="chat"
+      options={{
+        headerShown : false , 
+        tabBarIcon: ({ focused }) => (<TabIcon source={icons.chat} focused={focused} />)
+
+      }}
+      />
+
+
       <Tabs.Screen
         name="profile"
         options={{
@@ -80,30 +90,22 @@ export default function RootLayout() {
         }}
       />
 
-      <Tabs.Screen 
-      name="chat"
-      options={{
-        headerShown : false , 
-        tabBarIcon: ({ focused }) => (<TabIcon source={icons.chat} focused={focused} />)
-
-      }}
-      />
-
-      <Tabs.Screen  
+     
+      {/* <Tabs.Screen  
         name="symptomsChecker"
         options={{
           headerShown : false , 
           tabBarIcon: ({ focused }) => (<TabIcon source={icons.symptomIcon} focused={focused} />)
         }}
-      />  
+      />   */}
 
-      <Tabs.Screen  
+      {/* <Tabs.Screen  
         name="telemedicine"
         options={{
           headerShown : false , 
           tabBarIcon: ({ focused }) => (<TabIcon source={icons.telemed} focused={focused} />)
         }}
-      />      
+      />       */}
 
     </Tabs>
 

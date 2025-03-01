@@ -12,7 +12,7 @@ const Home = () => {
 
   if (isSignedIn) {
     // return <Redirect href={'/(boarding)/(tabs)/UserDataform'} />
-    return <Redirect href={'/(root)/(tabs)/home'} />
+    return <Redirect href={'/home'} />
   }
 
   return (

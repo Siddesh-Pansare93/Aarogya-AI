@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,8 +22,9 @@ export default function SymptomCheckerScreen() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<null | {
     diagnosis: string;
-    severity: 'low' | 'medium' | 'high';
+    severity: 'low' | 'medium' | 'high' | string;
     recommendations: string[] | string;
+    doctors?: any; // can be either string or array
   }>(null);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const soundRef = useRef<Audio.Sound | null>(null);
@@ -33,7 +34,7 @@ export default function SymptomCheckerScreen() {
   );
   const userData = useSelector((state: RootState) => state.user.userData);
 
-  // Function to get the user's current location
+  // Get user location
   const getUserLocation = async () => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -106,7 +107,7 @@ export default function SymptomCheckerScreen() {
 
       setLoading(true);
       console.log("Sending formData:", formData);
-      const response = await fetch(`http://192.168.107.125:5000/analyze_symptoms`, {
+      const response = await fetch(`http://192.168.34.127/analyze_symptoms`, {
         method: "POST",
         body: formData,
       });
@@ -116,6 +117,7 @@ export default function SymptomCheckerScreen() {
       }
       const responseData = await response.json();
       setResult(responseData);
+      console.log(responseData);
     } catch (error) {
       console.error("Failed to send audio:", error);
       Alert.alert("Error", "Failed to send audio. Please try again.");
@@ -136,9 +138,9 @@ export default function SymptomCheckerScreen() {
           ? { latitude: location.coords.latitude, longitude: location.coords.longitude }
           : null,
       };
-      const response = await fetch("http://192.168.107.125:5000/check_symptoms", {
+      const response = await fetch("http://192.168.34.127:5000/check_symptoms", {
         method: "POST",
-        headers: { "Content-Typee": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       if (!response.ok) {
@@ -153,6 +155,22 @@ export default function SymptomCheckerScreen() {
       setLoading(false);
     }
   };
+
+  // Helper to safely parse doctors if it's a JSON string
+  const getDoctorData = () => {
+    if (!result || !result.doctors) return null;
+    if (typeof result.doctors === 'string') {
+      try {
+        return JSON.parse(result.doctors);
+      } catch (error) {
+        console.error("Failed to parse doctors string:", error);
+        return null;
+      }
+    }
+    return result.doctors;
+  };
+
+  const doctorsData = getDoctorData();
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
@@ -189,24 +207,19 @@ export default function SymptomCheckerScreen() {
         </Animated.View>
 
         {result && (
-          <Animated.View
-            entering={FadeIn.duration(800)}
-            className="mt-5 bg-gray-100 p-6 border-4 border-black rounded-lg shadow-xl"
-          >
+          <Animated.View entering={FadeIn.duration(800)} className="mt-5 bg-gray-100 p-6 border-2 border-gray-400 rounded-lg shadow-xl">
             <Text className="text-2xl font-bold text-black mb-2">Diagnosis</Text>
             <Text className="text-xl text-black">{result.diagnosis}</Text>
 
             <View className="my-4">
               <Text className="text-2xl font-bold text-black mb-2">Severity</Text>
-              <Text
-                className={`text-xl font-semibold ${
-                  result.severity === 'low'
-                    ? 'text-green-600'
-                    : result.severity === 'medium'
-                    ? 'text-yellow-600'
-                    : 'text-red-600'
-                }`}
-              >
+              <Text className={`text-xl font-semibold ${
+                result.severity === 'low'
+                  ? 'text-green-600'
+                  : result.severity === 'medium'
+                  ? 'text-yellow-600'
+                  : 'text-red-600'
+              }`}>
                 {result.severity.toUpperCase()}
               </Text>
             </View>
@@ -221,6 +234,31 @@ export default function SymptomCheckerScreen() {
                 <Text className="text-xl text-black">{result.recommendations}</Text>
               )}
             </View>
+          </Animated.View>
+        )}
+
+        {/* Render doctor cards if available */}
+        {doctorsData && Array.isArray(doctorsData) && (
+          <Animated.View entering={FadeIn.duration(800)} className="mt-5">
+            <Text className="text-2xl font-bold text-black mb-3">Recommended Doctors</Text>
+            {doctorsData.map((doc: any, index: number) => (
+              <View key={index} className="bg-white p-4 border border-gray-300 rounded-lg mb-4 shadow-md">
+                <Text className="text-xl font-bold text-black">{doc["Doctor Name"]}</Text>
+                <Text className="mt-1 text-base text-gray-700">Specialization: {doc["Specialization"]}</Text>
+                <Text className="mt-1 text-base text-gray-700">Experience: {doc["Experience"]}</Text>
+                <Text className="mt-1 text-base text-gray-700">
+                  Location: {doc["Location"]} {doc["City"]}
+                </Text>
+                <Text className="mt-1 text-base text-gray-700">Hospital: {doc["Hospital"]}</Text>
+                <Text className="mt-1 text-base text-gray-700">Consultation Fee: {doc["Consultation Fee"]}</Text>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(doc["Profile Link"])}
+                  className="mt-3 bg-blue-600 p-2 rounded-lg"
+                >
+                  <Text className="text-white text-center font-semibold">Book Now</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
           </Animated.View>
         )}
       </ScrollView>

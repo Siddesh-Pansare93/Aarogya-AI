@@ -62,7 +62,10 @@ export default function RootLayout() {
               <Stack.Screen name="(auth)" options={{ headerShown: false }} />
               <Stack.Screen name="(boarding)" options={{ headerShown: false }} />
               <Stack.Screen name="(root)" options={{ headerShown: false }} />
+              {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+              <Stack.Screen name="home" options={{ headerShown: false }} />
               <Stack.Screen name="(profileScreens)" options={{ headerShown: false }} />
+              {/* <Stack.Screen name="(telimedicine)" options={{ headerShown: false }} /> */}
               <Stack.Screen name="+not-found" />
             </Stack>
           </ClerkLoaded>
