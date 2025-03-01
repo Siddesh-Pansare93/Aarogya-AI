@@ -37,6 +37,7 @@ import authImage from '@/assets/images/authImage.png'
 import authImage1 from '@/assets/images/authImage1.png'
 import scan from '@/assets/icons/scan.png'
 import symptomIcon from '@/assets/icons/symptoms.png'
+import telemed from '@/assets/icons/telemed.webp'
 
 
 
@@ -79,7 +80,8 @@ export const icons = {
     target,
     to,
     scan , 
-    symptomIcon
+    symptomIcon,
+    telemed
 };
 
 export const onboarding = [

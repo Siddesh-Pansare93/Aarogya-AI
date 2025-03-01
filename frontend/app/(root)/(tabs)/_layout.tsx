@@ -97,6 +97,14 @@ export default function RootLayout() {
         }}
       />  
 
+      <Tabs.Screen  
+        name="telemedicine"
+        options={{
+          headerShown : false , 
+          tabBarIcon: ({ focused }) => (<TabIcon source={icons.telemed} focused={focused} />)
+        }}
+      />      
+
     </Tabs>
 
 
