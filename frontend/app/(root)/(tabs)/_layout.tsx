@@ -96,7 +96,7 @@ export default function RootLayout() {
           tabBarIcon: ({ focused }) => (<TabIcon source={icons.symptomIcon} focused={focused} />)
         }}
       />  
-      
+
     </Tabs>
 
 

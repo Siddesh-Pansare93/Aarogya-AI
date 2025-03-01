@@ -90,7 +90,7 @@ export default function SymptomCheckerScreen() {
     if (!symptoms.trim()) return;
     setLoading(true);
     try {
-      const response = await fetch("http://192.168.34.127:5000/check_symptoms", {
+      const response = await fetch("http://192.168.107.125:5000/check_symptoms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ symptoms }),

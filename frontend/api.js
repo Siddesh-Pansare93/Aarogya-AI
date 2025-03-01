@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Base URL of your backend
 const BASE_URL = "http://192.168.151.250:8000";
-const PYTHONURL = "http://192.168.34.127:5000" ; 
+const PYTHONURL = "http://192.168.107.125:5000" ; 
 
 
 // Axios instance
