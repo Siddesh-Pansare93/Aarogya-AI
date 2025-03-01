@@ -6,6 +6,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Audio } from 'expo-av';
 
+import { useSelector, useDispatch } from "react-redux";
+import { setNutrients, resetNutrients, addIngredient } from "../../../store/features/dailyIntakeSlice"; // Update import
+import { AppDispatch, RootState } from "../../../store/store";
+
+
+
 const severityColors: { [key: string]: [string, string] } = {
   low: ['#4CAF50', '#8BC34A'],
   medium: ['#FFC107', '#FFB300'],
@@ -22,6 +28,11 @@ export default function SymptomCheckerScreen() {
   }>(null);
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const soundRef = useRef<Audio.Sound | null>(null);
+
+  const ingredientsFromState = useSelector(
+    (state: RootState) => state.user.dailyIntake.ingredients
+  );
+  const userData = useSelector((state: RootState) => state.user.userData);
 
   const startRecording = async () => {
     try {
@@ -64,6 +75,8 @@ export default function SymptomCheckerScreen() {
         type: `audio/${fileType}`,
         name: `voice_query.${fileType}`,
       } as any);
+      formData.append("user_Details", JSON.stringify(userData));
+      formData.append("ingredients", JSON.stringify(ingredientsFromState));
 
       setLoading(true);
       const response = await fetch(`http://192.168.34.127:5000/upload_audio`, {

@@ -36,6 +36,7 @@ import welcomebg from '@/assets/images/welcomebg.png'
 import authImage from '@/assets/images/authImage.png'
 import authImage1 from '@/assets/images/authImage1.png'
 import scan from '@/assets/icons/scan.png'
+import symptomIcon from '@/assets/icons/symptoms.png'
 
 
 
@@ -77,7 +78,8 @@ export const icons = {
     star,
     target,
     to,
-    scan
+    scan , 
+    symptomIcon
 };
 
 export const onboarding = [

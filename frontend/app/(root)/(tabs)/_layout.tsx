@@ -87,7 +87,15 @@ export default function RootLayout() {
         tabBarIcon: ({ focused }) => (<TabIcon source={icons.chat} focused={focused} />)
 
       }}
-      /> 
+      />
+
+      <Tabs.Screen  
+        name="symptomsChecker"
+        options={{
+          headerShown : false , 
+          tabBarIcon: ({ focused }) => (<TabIcon source={icons.symptomIcon} focused={focused} />)
+        }}
+      />  
       
     </Tabs>
 
