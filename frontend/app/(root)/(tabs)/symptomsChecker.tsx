@@ -138,7 +138,7 @@ export default function SymptomCheckerScreen() {
       };
       const response = await fetch("http://192.168.107.125:5000/check_symptoms", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Typee": "application/json" },
         body: JSON.stringify(payload),
       });
       if (!response.ok) {
