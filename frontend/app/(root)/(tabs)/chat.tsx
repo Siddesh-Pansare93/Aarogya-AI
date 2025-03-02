@@ -72,7 +72,7 @@ const StoreScreen = () => {
 
       setLoading(true); // Start loading
       console.log("Sending audio to server..." ,);
-      const response = await fetch(`http://192.168.34.107.131:5000/upload_audio`, {
+      const response = await fetch(`http://192.168.107.131:5000/upload_audio`, {
         method: "POST",
         body: formData,
         headers: {

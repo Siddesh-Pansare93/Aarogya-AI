@@ -12,7 +12,7 @@ const NutritionReportScreen = () => {
 
   // Prepare data for charts
   const nutrientLabels = Object.keys(nutrients)
-  const nutrientValues = Object.values(nutrients).map((value) => Number.parseInt(value.toString()))
+  const nutrientValues = Object.values(nutrients).map((value) => Number.parseInt(value?.toString()))
 
   // Function to shorten labels
   const shortenLabel = (label: string) => label.substring(0, 3)

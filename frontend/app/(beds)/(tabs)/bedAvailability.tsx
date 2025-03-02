@@ -61,7 +61,7 @@ const HospitalBedsScreen = () => {
       )
 
       // Replace with your backend endpoint URL
-      const response = await fetch("http://192.168.34.107.131:5000/find_beds", {
+      const response = await fetch("http://192.168.107.131:5000/find_beds", {
         method: "POST",
         body: formData,
       })

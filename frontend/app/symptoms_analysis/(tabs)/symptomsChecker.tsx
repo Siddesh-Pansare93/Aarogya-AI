@@ -107,7 +107,7 @@ export default function SymptomCheckerScreen() {
 
       setLoading(true);
       console.log("Sending formData:", formData);
-      const response = await fetch(`http://192.168.34.107.131:5000/analyze_symptoms`, {
+      const response = await fetch(`http://192.168.107.131:5000/analyze_symptoms`, {
         method: "POST",
         body: formData,
       });
