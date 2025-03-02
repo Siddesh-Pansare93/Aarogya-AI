@@ -84,7 +84,7 @@ export default function HomeScreen() {
             description="Find available hospital beds in real-time"
             icon={<Hospital size={30} color="white" />}
             colors={['#834d9b', '#d04ed6']}
-            // onPress={() => router.push('/(root)/(tabs)/hospital-beds')}
+            onPress={() => router.push('/(beds)/(tabs)/bedAvailability')}
           />
         </View>
         

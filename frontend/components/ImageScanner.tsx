@@ -92,7 +92,7 @@ const ImageScanner = () => {
       formData.append("description", description || "");
       formData.append("user_Details", JSON.stringify(userData));
 
-      const response = await fetch("http://192.168.34.127:5000/scan_img", {
+      const response = await fetch("http://192.168.34.107.131:5000/scan_img", {
         method: "POST",
         body: formData,
         headers: {

@@ -107,7 +107,7 @@ export default function SymptomCheckerScreen() {
 
       setLoading(true);
       console.log("Sending formData:", formData);
-      const response = await fetch(`http://192.168.34.127/analyze_symptoms`, {
+      const response = await fetch(`http://192.168.34.107.131:5000/analyze_symptoms`, {
         method: "POST",
         body: formData,
       });
@@ -138,7 +138,7 @@ export default function SymptomCheckerScreen() {
           ? { latitude: location.coords.latitude, longitude: location.coords.longitude }
           : null,
       };
-      const response = await fetch("http://192.168.34.127:5000/check_symptoms", {
+      const response = await fetch("http://192.168.34.107.131:5000/check_symptoms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
